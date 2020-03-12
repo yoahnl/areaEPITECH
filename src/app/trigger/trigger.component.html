@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="service"></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      Edit trigger
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item *ngFor="let trigger of triggers; let i = index">
+      <ion-label>{{trigger.name}}</ion-label>
+      <ion-toggle (toggle)="activeNewTrigger(i)" (ionChange)="activeNewTrigger(i)" [checked]="trigger.checked"></ion-toggle>
+    </ion-item>
+
+  </ion-list>
+  <ion-button size="full" (click)="saveAllTrigger()" >
+    Save new trigger
+  </ion-button>
+</ion-content>

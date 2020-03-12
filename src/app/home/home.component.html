@@ -1,0 +1,53 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Home
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="">
+  <ion-grid *ngIf="showLoader">
+    <ion-row>
+      <ion-progress-bar type="indeterminate"></ion-progress-bar>
+    </ion-row>
+  </ion-grid>
+  <ion-list>
+    <div *ngFor="let trigger of listOfTriggers">
+      <div *ngIf="trigger.isUsed">
+        <ion-card class="welcome-card" >
+          <ion-card-header>
+            <ion-card-title>{{trigger.name}}</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-grid>
+              <ion-row>
+              </ion-row>
+              <ion-row>
+                <ion-col>
+                  <ion-img [src]="trigger.logo" style="width: 70px;">
+                  </ion-img>
+                </ion-col>
+                <ion-col>
+                  {{trigger.name}}
+                </ion-col>
+                <ion-col>
+                  <ion-row *ngFor="let singleTrigger of trigger.triggers">
+                    <div *ngIf="singleTrigger.checked">
+                      <ion-label (click)="activeTrigger(singleTrigger.objectId, singleTrigger.name)">
+                        {{singleTrigger.name}}
+                      </ion-label>
+                    </div>
+                  </ion-row>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-card-content>
+        </ion-card>
+      </div>
+    </div>
+  </ion-list>
+</ion-content>

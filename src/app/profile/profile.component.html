@@ -1,0 +1,62 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Home
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-card>
+          <ion-row>
+            <ion-col class="menu-content-push" size="5" offset="6">
+              <ion-button (click)="editProfile()">
+                <ion-icon name="apps"></ion-icon>
+                edit profile
+              </ion-button>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-avatar>
+                <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
+              </ion-avatar>
+            </ion-col>
+          </ion-row>
+          <ion-card-header>
+            <ion-card-subtitle>{{firstname}} {{lastname}}</ion-card-subtitle>
+            <ion-card-title>{{username}}</ion-card-title>
+            <div>
+              <p>
+                {{email}}
+              </p>
+            </div>
+          </ion-card-header>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-list *ngFor="let token of userTokens">
+    <ion-item>
+      <ion-avatar slot="start">
+        <img [src]="token.logo">
+      </ion-avatar>
+      <ion-label>
+        <h2>{{token.name}}</h2>
+        <ion-button *ngIf="token.isConnected" (click)="disconnectToService(token.name)">
+          Disconnect
+        </ion-button>
+        <ion-button *ngIf="!token.isConnected" (click)="connectToService(token.name)">
+          Connect to {{token.name}}
+        </ion-button>
+      </ion-label>
+    </ion-item>
+
+  </ion-list>
+</ion-content>

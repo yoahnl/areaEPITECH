@@ -1,0 +1,34 @@
+<ion-header translucent>
+  <ion-toolbar>
+    <ion-title>Edit your profile</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismissModal()">Close</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card-header style="font-size: 1.5em;">
+    Edit your profile
+  </ion-card-header>
+  <ion-item>
+    <ion-label position="floating">Username</ion-label>
+    <ion-input [value]="username" [(ngModel)]="username"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating">Email</ion-label>
+    <ion-input [value]="email" [(ngModel)]="email"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating">FirstName</ion-label>
+    <ion-input [value]="firstname" [(ngModel)]="firstname"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating">LastName</ion-label>
+    <ion-input [value]="lastname" [(ngModel)]="lastname"></ion-input>
+  </ion-item>
+
+  <ion-button expand="full" style="margin-top: 3em;" (click)="updateUserInfo()">
+    save
+  </ion-button>
+</ion-content>

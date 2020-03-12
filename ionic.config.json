@@ -1,0 +1,8 @@
+{
+  "name": "areaMobile",
+  "integrations": {
+    "capacitor": {},
+    "cordova": {}
+  },
+  "type": "angular"
+}

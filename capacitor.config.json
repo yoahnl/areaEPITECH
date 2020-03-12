@@ -1,0 +1,8 @@
+{
+  "appId": "area.mobile.new.paris",
+  "appName": "areaMobile",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "www",
+  "cordova": {}
+}

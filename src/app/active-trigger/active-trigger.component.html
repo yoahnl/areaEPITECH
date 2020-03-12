@@ -1,0 +1,23 @@
+<ion-header translucent>
+  <ion-toolbar>
+    <ion-title>{{serviceName}}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismissModal()">Close</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-item *ngIf="isButton">
+    <ion-label position="floating">send a message on {{serviceName}}</ion-label>
+    <ion-button size="large" (click)="sendMessage()">Send your message</ion-button>
+  </ion-item>
+  <ion-item *ngIf="isText">
+    <ion-label position="floating">send a message on {{serviceName}}</ion-label>
+    <ion-textarea [(ngModel)]="message"></ion-textarea>
+  </ion-item>
+  <ion-grid *ngIf="isText">
+    <ion-col size="4" offset="3">
+      <ion-button size="large" (click)="sendMessage()">Send your message !</ion-button>
+    </ion-col>
+  </ion-grid>
+</ion-content>
