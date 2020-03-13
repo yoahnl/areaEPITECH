@@ -22,6 +22,8 @@ import {LoginComponent} from './login/login.component';
 import * as Parse                   from 'parse';
 import {TriggerComponent} from './trigger/trigger.component';
 import {ActiveTriggerComponent} from './active-trigger/active-trigger.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 Parse.initialize('morningstareip', 'morningstareipMaster_KEY');
 (Parse as any).serverURL = 'https://morningstareip.herokuapp.com/parse';
@@ -49,6 +51,7 @@ Parse.initialize('morningstareip', 'morningstareipMaster_KEY');
       AngularFireModule.initializeApp(firebaseConfig),
       AngularFireAuthModule,
       HttpClientModule,
+      ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
   ],
   providers: [
     StatusBar,

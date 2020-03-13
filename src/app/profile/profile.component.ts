@@ -51,10 +51,10 @@ export class ProfileComponent implements OnInit
   async getServiceToken()
   {
     let user = User.current();
-    //this.userTokens = [];
+    this.userTokens = [];
     this.userTokens = user.get('token');
     console.log(this.userTokens);
-    if (this.userTokens.length == 0 || this.userTokens == null)
+    if (this.userTokens == null)
     {
       alert("service connection must be set");
       this.setFirstServiceToken();
@@ -111,8 +111,8 @@ export class ProfileComponent implements OnInit
   {
     const provider = new auth.GoogleAuthProvider();
     const credential = this.afAuth.auth.signInWithPopup(provider).then((data) => {
-      console.log(data.user.refreshToken);
-      this.setNewToken("Youtube", data.user.refreshToken);
+      // @ts-ignore
+      this.setNewToken("Youtube", data.credential.accessToken);
     });
   }
 
@@ -120,8 +120,8 @@ export class ProfileComponent implements OnInit
   {
     const provider = new auth.FacebookAuthProvider();
     const credential = this.afAuth.auth.signInWithPopup(provider).then((data) => {
-      console.log(data.user.refreshToken);
-      this.setNewToken("Facebook", data.user.refreshToken);
+      // @ts-ignore
+      this.setNewToken("Facebook", data.credential.accessToken);
 
     });
   }
@@ -129,9 +129,9 @@ export class ProfileComponent implements OnInit
   TwitterAuth()
   {
     const provider = new auth.TwitterAuthProvider();
-    const credential = this.afAuth.auth.signInWithPopup(provider).then((data) => {
-      console.log(data.user.refreshToken);
-      this.setNewToken("Twitter", data.user.refreshToken);
+    const credential = this.afAuth.auth.signInWithPopup(provider).then((result) => {
+      // @ts-ignore
+      this.setNewToken("Twitter", result.credential.accessToken);
 
     });
   }
@@ -140,8 +140,8 @@ export class ProfileComponent implements OnInit
   {
     const provider = new auth.GithubAuthProvider();
     const credential = this.afAuth.auth.signInWithPopup(provider).then((data) => {
-      console.log(data.user.refreshToken);
-      this.setNewToken("Github", data.user.refreshToken);
+      // @ts-ignore
+      this.setNewToken("Github", data.credential.accessToken);
 
     });
   }
