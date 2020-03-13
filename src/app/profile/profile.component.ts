@@ -131,6 +131,7 @@ export class ProfileComponent implements OnInit
     const provider = new auth.TwitterAuthProvider();
     const credential = this.afAuth.auth.signInWithPopup(provider).then((result) => {
       // @ts-ignore
+      console.log(result);
       this.setNewToken("Twitter", result.credential.accessToken);
 
     });
