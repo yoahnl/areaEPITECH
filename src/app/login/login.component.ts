@@ -53,6 +53,7 @@ export class LoginComponent implements OnInit
       try {
         await User.logIn(userInfo.email, userInfo.password).then(() => {
           console.log("user login");
+          document.location.reload();
           this.navController.navigateRoot('');
         })
 

@@ -78,11 +78,10 @@ export class ActiveTriggerComponent implements OnInit
 
   sendMessage()
   {
-    let body;
+    let body = {'data': this.message};
     this.http.post(this.urlToCall, body, {
       headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        'data': this.message
+        'Content-Type': 'application/json',
       }
     }).subscribe((res) =>{
       this.modalCtrl.dismiss();

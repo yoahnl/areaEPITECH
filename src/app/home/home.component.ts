@@ -29,8 +29,8 @@ export class HomeComponent implements OnInit
   {
     if (this.hasReloaded)
     {
+      console.log("need to reload");
       this.hasReloaded = true;
-      document.location.reload();
     }
   }
 

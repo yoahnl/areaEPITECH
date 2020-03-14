@@ -2,7 +2,7 @@ import { Component, OnInit    } from '@angular/core';
 import { ModalController      } from '@ionic/angular';
 import { EditProfileComponent } from '../edit-profile/edit-profile.component';
 import { AngularFireAuth      } from '@angular/fire/auth';
-import { auth } from 'firebase/app';
+import { auth                 } from 'firebase/app';
 import * as Parse               from 'parse';
 
 import User = Parse.User;
@@ -54,7 +54,7 @@ export class ProfileComponent implements OnInit
     this.userTokens = [];
     this.userTokens = user.get('token');
     console.log(this.userTokens);
-    if (this.userTokens == null)
+    if (this.userTokens == null || this.userTokens.length == 0)
     {
       alert("service connection must be set");
       this.setFirstServiceToken();
@@ -75,7 +75,8 @@ export class ProfileComponent implements OnInit
         name        : result.get('Name'),
         logo        : result.get('Logo'),
         objectId    : result.id,
-        token       : "",
+        accessToken : "",
+        secretToken : "",
         isConnected : false,
       });
     }
@@ -111,8 +112,9 @@ export class ProfileComponent implements OnInit
   {
     const provider = new auth.GoogleAuthProvider();
     const credential = this.afAuth.auth.signInWithPopup(provider).then((data) => {
+      console.log(data.credential);
       // @ts-ignore
-      this.setNewToken("Youtube", data.credential.accessToken);
+      this.setNewToken("Youtube", data.credential.accessToken, data.credential.secret);
     });
   }
 
@@ -120,8 +122,9 @@ export class ProfileComponent implements OnInit
   {
     const provider = new auth.FacebookAuthProvider();
     const credential = this.afAuth.auth.signInWithPopup(provider).then((data) => {
+      console.log(data.credential);
       // @ts-ignore
-      this.setNewToken("Facebook", data.credential.accessToken);
+      this.setNewToken("Facebook", data.credential.accessToken, data.credential.secret);
 
     });
   }
@@ -129,11 +132,10 @@ export class ProfileComponent implements OnInit
   TwitterAuth()
   {
     const provider = new auth.TwitterAuthProvider();
-    const credential = this.afAuth.auth.signInWithPopup(provider).then((result) => {
+    const credential = this.afAuth.auth.signInWithPopup(provider).then((data) => {
+      console.log(data.credential);
       // @ts-ignore
-      console.log(result);
-      this.setNewToken("Twitter", result.credential.accessToken);
-
+      this.setNewToken("Twitter", data.credential.accessToken, data.credential.secret);
     });
   }
 
@@ -141,20 +143,22 @@ export class ProfileComponent implements OnInit
   {
     const provider = new auth.GithubAuthProvider();
     const credential = this.afAuth.auth.signInWithPopup(provider).then((data) => {
+      console.log(data.credential);
       // @ts-ignore
-      this.setNewToken("Github", data.credential.accessToken);
+      this.setNewToken("Github", data.credential.accessToken, data.credential.secret);
 
     });
   }
 
-  setNewToken(serviceName: string, token: string)
+  setNewToken(serviceName: string, accessToken: string, secretToken: string)
   {
     let user = User.current();
     for (let index in this.userTokens)
     {
       if (this.userTokens[index].name == serviceName)
       {
-        this.userTokens[index].token        = token;
+        this.userTokens[index].accessToken  = accessToken;
+        this.userTokens[index].secretToken  = secretToken;
         this.userTokens[index].isConnected  = true;
         user.set('token', this.userTokens);
         user.save().then((data) => {
@@ -172,7 +176,7 @@ export class ProfileComponent implements OnInit
     {
       if (this.userTokens[index].name == serviceName)
       {
-        this.userTokens[index].token        = "";
+        this.userTokens[index].accessToken  = "";
         this.userTokens[index].isConnected  = false;
         user.set('token', this.userTokens);
         user.save().then((data) => {

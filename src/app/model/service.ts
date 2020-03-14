@@ -10,7 +10,8 @@ export interface ServiceToken
 {
     name        : string,
     objectId    : string,
-    token       : string,
+    accessToken : string,
+    secretToken : string,
     logo        : string,
     isConnected : boolean,
 }
